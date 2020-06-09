@@ -160,7 +160,7 @@ I think this deserves a separate section. There are many facets to code quality 
 <dd>This is kind of a separate topic, but in my experience it's very tightly coupled with code quality. Is the code easy to test automatically? Do I have to mock half the world just to get my tests running? Can the code be split up to help with that? In my experience when a code is easily testable, it usually follows most good programming practices and pragmatic approaches. It forces me to split up the code to bite-sized chunks: easy to read, easy to reason about, easy to test. Unfortunately this is not always achievable (think unstable network connection, animations, transitions, distributed computations...)</dd>
 
 
-For an even more opinionated idea about good code check out (The No Spaghetti Manifesto)[https://www.vacuumlabs.com/spaghetti]
+For an even more opinionated idea about good code check out [The No Spaghetti Manifesto](https://www.vacuumlabs.com/spaghetti)
 
 
 

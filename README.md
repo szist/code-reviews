@@ -59,7 +59,7 @@ It depends on the phase when the review is created (preliminary review)
 
 Everyone has a different process. My review process usually looks like roughly this:
 
-1. Check out the task (if tracked in Jira for example), read through the acceptance criteria.
+1. Check out the task (if tracked in an issue tracker for example), read through the acceptance criteria.
 1. Give some time to understand the requirements, imagine what would need to happen to do it with the limited knowledge I have at this point. (this can take from few seconds to max few minutes, otherwise I would just ask the author to have a quick chat)
 1. Read the PR description to see if there were any decisions made during development, any additional details that I should consider and might not have been clear to me.
 1. Briefly check out what it does for myself (running the application, starting up the service, poke around), nothing serious at this point.
@@ -83,7 +83,7 @@ A generic list of things to check:
 <dd>Does the change or is there a possibility that the change might break something elsewhere? Can it be prevented?</dd>
 
 <dt>Code quality</dt>
-<dd>This does not include thing like "should there be a space after that comma". That should be covered by formatter, linter. What should be included are things not covered by tooling. Some of them might be even covered by some linters: from "that method has too many parameters" (see Code Quality below) to "I don't think that variable's name is clear" to "I think this would be simpler if you used the visitor pattern". When you look at this code again in a month, is it readable enough that you'll understand why the change was made without searching through old emails/slack messages/Jira tasks/github issues?</dd>
+<dd>This does not include thing like "should there be a space after that comma". That should be covered by formatter, linter. What should be included are things not covered by tooling. Some of them might be even covered by some linters: from "that method has too many parameters" (see Code Quality below) to "I don't think that variable's name is clear" to "I think this would be simpler if you used the visitor pattern". When you look at this code again in a month, is it readable enough that you'll understand why the change was made without searching through old emails/slack messages/issue tracker tasks/github issues?</dd>
 
 <dt>Testability</dt>
 <dd>Is there an automated test that covers this change? If not, does it make sense to write one?</dd>
@@ -117,6 +117,17 @@ That said, reviews are not the place to have lengthy discussions as that's detri
 The responsibility directly affects the process of a reviewer (described above). I don't think this changes much between projects. Once you are assigned as reviewer, you become responsible for the code. 
 
 You must understand the code change well enough to make an informed decision about whether it should be released. You must make sure that the author answers all your questions satisfactorily and either makes any changes you think are necessary or convinces you that they're really not. That includes changes needed for all aspects of the code review (see above). Not just correctness. If a code change goes out that causes an injection, it's your fault, as well as the fault of the developer making the change. If a code change goes out that makes automated testing more difficult, it's your fault, too.  If a code change goes out that makes the application sluggish, it's your fault, too. Remember, the author asked for your code review. He or she wants your opinion and your best judgment. Make sure you give it to him or her.
+
+
+### **When should I approve a review?**
+
+The most important question after all is this. The easy answer is that whenever all of the above is satisfied: I understand the code, there are no stinkers, the code quality is excellent, there is proper test coverage, all edge cases are accounted for.
+
+In reality it's not that simple, is it? 😊😊😊
+
+We are pressed by deadlines, we are blocking other people, there are a ton of small things we could do to improve code quality, we could add tests, but we are just adding some temporary code.
+
+In general, my approach is to approve, whenever only small concerns were raised and we agreed to do some changes in followups. I have to trust the author to follow through with these. I'm expecting the author to quickly address small concerns before merging in and make sure followups are tracked (either new PR created or in an issue tracker). My approach requires to build trust with the team members, know their strengths and weaknesses. It's a compromise for me to ensure velocity, productivity and agility.
 
 ## Code Quality
 

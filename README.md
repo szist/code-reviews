@@ -1,10 +1,10 @@
 # code-reviews
 
-I found myself repeating most/parts of this document on many projects, never writing it down. I have been on projects where the requirements for code reviews were very strict, and I've been part of YOLO driven development, too, and it made sense. 😊 
+I've found myself repeating most/parts of this document on many projects, never writing it down. I have been on projects where the requirements for code reviews were very strict, and I've been part of YOLO driven development, too, and it made sense. 😊 
 
 ## Questions to answer
 
-I'm hoping these questions could help set up guidelines and practices that are agreed upon in any team. For each question I've added my very opinionated answers. Take them with a huge grain of salt. My opinions and my review process change slightly every time I come to a new project as I learn and more and more tools surface to help out with ensuring code quality.
+I'm hoping these questions could help set up guidelines for code reviews and practices that are agreed upon in any team. For each question I've added my very opinionated answers. Take them with a huge grain of salt. My opinions and my review process change slightly every time I come to a new project as I learn and more and more tools surface to help out with ensuring code quality.
 
 ### **What are code reviews?**
 
@@ -13,9 +13,9 @@ Code reviews are not well defined. Every company, even maybe every team will hav
 > A code review is the process of examining written code with the purpose of highlighting mistakes in order to learn from them.
 
 My definition:
-A process to ensure code quality, to protect application logic, to spread knowledge, a most importantly learning tool.
+A process to ensure code quality, to protect application logic, to spread knowledge, and most importantly learning tool.
 
-### **What is not a code review? What is not part of the code review?**
+### **What is not a code review? What is not part of a code review?**
 
 The answers might be very different. Some people use code reviews to just check for stinkers, other developers just check syntax, yet other developers check everything and it takes them half a day.
 
@@ -27,7 +27,7 @@ Anything that can be covered by automation testing and CICD should not be part o
 * formatting (prettier, eslint)
 * most functionality check (unit tests, integration tests)
 
-### **What should be part of the code review then?**
+### **What should be part of a code review then?**
 
 What exactly is included depends on the project and should be defined. For example a mobile application would require to check responsiveness; a backend application would have stricter requirements on security. Apart from project specific ones, the following questions should give some pointers.
 
@@ -67,7 +67,7 @@ It depends on the phase when the PR is created (preliminary review or final revi
 Everyone has a different process. My review process usually looks like roughly this:
 
 1. Check out the task (if tracked in an issue tracker for example), read through the acceptance criteria.
-1. Give some time to understand the requirements, imagine what would need to happen to do it with the limited knowledge I have at this point. (this can take from few seconds to max few minutes, otherwise I would just ask the author to have a quick chat)
+1. Give it some time to understand the requirements, imagine what would need to happen to do it with the limited knowledge I have at this point. (this can take from few seconds to max few minutes, otherwise I would just ask the author to have a quick chat)
 1. Read the PR description to see if there were any decisions made during development, any additional details that I should consider and might not have been clear to me.
 1. Briefly check out what it does for myself (running the application, starting up the service, poke around), nothing serious at this point.
 1. Review the code and **!!understand!!** the changes that are done, why they are done. (might be a second call/chat with author, if something non-trivial is happening)

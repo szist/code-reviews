@@ -2,20 +2,20 @@
 
 ## Question to answer
 
-These questions should help setting up code reviews for new projects
+I'm hoping these questions could help set up guidelines and practices that are agreed upon in any team. For each question I've added my very opinionated answers. Take them with a huge grain of salt. My opinions and my review process change slightly every time I come to a new project as I learn and more and more tools surface to help out with ensuring code quality.
 
 ### **What are code reviews?**
 
-Code review is not well defined. Every company, even maybe every team will have a different understanding. A good definition from techopedia:
+Code reviews are not well defined. Every company, even maybe every team will have a different understanding. A good generic definition I found from techopedia:
 
 > A code review is the process of examining written code with the purpose of highlighting mistakes in order to learn from them.
 
 My definition:
-A process to ensure code quality, spread knowledge, a learning tool and protect application logic.
+A process to ensure code quality, to protect application logic, to spread knowledge, a most importantly learning tool.
 
 ### **What is not a code review? What is not part of the code review?**
 
-The answers might be very different. Some people view code review to just check for stinkers, other developers just check syntax, yet another developers check everything.
+The answers might be very different. Some people use code reviews to just check for stinkers, other developers just check syntax, yet other developers check everything and it takes them half a day.
 
 *My answer:*
 Anything that can be covered by automation testing and CICD should not be part of the code review:
@@ -51,9 +51,14 @@ This was a point of contention in every project I've been in. With a lack of cle
 
 My opinion is that the owners should identify and request who would be best to review their code, with the reviewers having the opportunity to pass on the responsibility. But the latter happens without the author's involvement.
 
-### **How should a pull request look like?**
+### **What should a pull request look like?**
 
-It depends on the phase when the review is created (preliminary review)
+It depends on the phase when the PR is created (preliminary review or final review). Against preliminary PRs I have very little expectations. For (semi-)final reviews, though, my list is longer:
+
+* useful PR description with relevant links (issue tracker, designs, API documentations)
+* description contains all non-trivial decisions made during development (anything agreed upon with business, designers)
+* ideally sensible commits, otherwise expecting squash&merge (the whole rebase vs merge battle)
+* the PR is self-contained (not a partial result) and correctly split up (not too large, unrelated things are separated out)
 
 ### **How do I do a code review?**
 
@@ -64,14 +69,14 @@ Everyone has a different process. My review process usually looks like roughly t
 1. Read the PR description to see if there were any decisions made during development, any additional details that I should consider and might not have been clear to me.
 1. Briefly check out what it does for myself (running the application, starting up the service, poke around), nothing serious at this point.
 1. Review the code and !!understand!! the changes that are done. (might be a second call/chat with author, if something non-trivial is happening)
-1. With the knowledge how it's implemented, try to break the code. Try methods, edge-cases not covered by tests.
+1. With the knowledge of how it's implemented, try to break the code. Try methods, edge-cases not covered by tests.
 1. Approve/Comment/Request changes
 
-Some would argue that the last one should be QA work. At some companies there is even a dedicated QA role for this, who's sole task is to add automation and ensure that the code is safe. However, I think all developers would be better of learning to break things, see the edge cases, learn how to detect stinky parts in the future.
+Some would argue that the last one should be QA work. At some companies there is even a dedicated QA role for this, who's sole task is to add automation and ensure that the code is safe. However, I think all developers would be better off learning to get their hands dirty, to break things, see the edge cases, and learn how to detect stinky parts in the future.
 
 ### **In general what do I look for when doing a review?**
 
-This is the very opinionated parts begin. All of the following questions should be answered when starting a new project. Ideally this should also be communicated when onboarding new members to the team.
+This is where the very opinionated parts begin. All of the following questions should be answered when starting a new project. Ideally this should also be communicated when onboarding new members to the team.
 
 A generic list of things to check:
 
@@ -83,13 +88,13 @@ A generic list of things to check:
 <dd>Does the change or is there a possibility that the change might break something elsewhere? Can it be prevented?</dd>
 
 <dt>Code quality</dt>
-<dd>This does not include thing like "should there be a space after that comma". That should be covered by formatter, linter. What should be included are things not covered by tooling. Some of them might be even covered by some linters: from "that method has too many parameters" (see Code Quality below) to "I don't think that variable's name is clear" to "I think this would be simpler if you used the visitor pattern". When you look at this code again in a month, is it readable enough that you'll understand why the change was made without searching through old emails/slack messages/issue tracker tasks/github issues?</dd>
+<dd>This does not include things like "should there be a space after that comma". That should be covered by formatter, linter. What should be included are things not covered by tooling. Some of them might be even covered by some linters: from "that method has too many parameters" (see Code Quality below) to "I don't think that variable's name is clear" to "I think this would be simpler if you used the visitor pattern". When you look at this code again in a month, is it readable enough that you'll understand why the change was made without searching through old emails/slack messages/issue tracker tasks/github issues?</dd>
 
 <dt>Testability</dt>
 <dd>Is there an automated test that covers this change? If not, does it make sense to write one?</dd>
 
 <dt>Security</dt>
-<dd>This part is often ignored, but should always be at the back of every developers mind. Could this change make users more vulnerable to hacking? Is there a way to ensure better security?</dd>
+<dd>This part is often ignored, but should always be at the back of every developer's mind. Could this change make users more vulnerable to hacking? Is there a way to ensure better security?</dd>
 
 <dt>Performance</dt>
 <dd>Will this change cause a performance problem under some situations? Does it cause problems with database load? Memory use? Network traffic? Browser load? Application lag</dd>
@@ -114,7 +119,7 @@ That said, reviews are not the place to have lengthy discussions as that's detri
 
 ### **What am I responsible for when I'm a: reviewer?**
 
-The responsibility directly affects the process of a reviewer (described above). I don't think this changes much between projects. Once you are assigned as reviewer, you become responsible for the code. 
+The responsibility directly affects the process of a reviewer (described above). I don't think this changes much between projects. Once you are assigned as a reviewer, you become responsible for the code. 
 
 You must understand the code change well enough to make an informed decision about whether it should be released. You must make sure that the author answers all your questions satisfactorily and either makes any changes you think are necessary or convinces you that they're really not. That includes changes needed for all aspects of the code review (see above). Not just correctness. If a code change goes out that causes an injection, it's your fault, as well as the fault of the developer making the change. If a code change goes out that makes automated testing more difficult, it's your fault, too.  If a code change goes out that makes the application sluggish, it's your fault, too. Remember, the author asked for your code review. He or she wants your opinion and your best judgment. Make sure you give it to him or her.
 
@@ -127,11 +132,11 @@ In reality it's not that simple, is it? 😊😊😊
 
 We are pressed by deadlines, we are blocking other people, there are a ton of small things we could do to improve code quality, we could add tests, but we are just adding some temporary code.
 
-In general, my approach is to approve, whenever only small concerns were raised and we agreed to do some changes in followups. I have to trust the author to follow through with these. I'm expecting the author to quickly address small concerns before merging in and make sure followups are tracked (either new PR created or in an issue tracker). My approach requires to build trust with the team members, know their strengths and weaknesses. It's a compromise for me to ensure velocity, productivity and agility.
+In general, my approach is to approve, whenever only small concerns were raised and we agreed to do some changes in followups. I have to trust the author to follow through with these. I'm expecting the author to quickly address small concerns before merging in and make sure followups are tracked (either new PR created or in an issue tracker). My approach requires building trust with the team members, know their strengths and weaknesses, which is the exact opposite how I'm supposed to view pull requests: don't trust anything. It's a compromise for me to ensure velocity, productivity and agility.
 
 ## Code Quality
 
-I think this deservers a separate section. There are many facets to code quality and it's a very subjective matter most of the time. In general what I found are good indicators of code quality:
+I think this deserves a separate section. There are many facets to code quality and it's a very subjective matter most of the time. In general what I found are good indicators of code quality:
 
 <dl>
 <dt>Readability aka the WTF factor</dt>
@@ -143,13 +148,13 @@ I think this deservers a separate section. There are many facets to code quality
 <dd>How easy it is to change the code if new requirements come in (they will come!) or business logic changes (it will!)? It can range from very flexible (smells of over-engineering) to very rigid (you better rewrite the whole thing if something changes). I haven't found an exact way to measure this. For me it's usually comes down to following good programming principles, KISS and whatever makes sense at the given time.</dd>
 
 <dt>Maintainability</dt>
-<dd>This is related to flexibility. The difference is flexibility covers business logic changes. By maintainable here I mean if the code will work even after a few months. Is it using any experimental syntax, unstable libraries? How pragmatic should I be writing this code? Can I use the new shiny state managers for react like reactn or am I better of just going the boring-battle-tested-not-without-any-issues redux? Will the maintainers curse me after I handed over my code?</dd>
+<dd>This is related to flexibility. The difference is flexibility covers business logic changes. By maintainable here I mean if the code will work even after a few months. Is it using any experimental syntax, unstable libraries? How pragmatic should I be writing this code? Can I use the new shiny state managers for react like ReactN or am I better of just going the boring-battle-tested-not-without-any-issues redux? Will the maintainers curse me after I handed over my code?</dd>
 
 <dt>Reusability</dt>
-<dd>How much of the code I'm writing could be re-used later? Am I copy&pasting this code the second time now? Does it make sense to make my code re-usable at this stage? Can my code be re-used between platforms? backend frontend? A very good example for this is I think graphql typings where the backend systems and frontend would have common type definitions. Another example might just be a list of input fields I'm registering for a form - probably it would make sense to have the input definitions in a data structure and just loop through that.</dd>
+<dd>How much of the code I'm writing could be reused later? Am I copy&pasting this code the second time now? Does it make sense to make my code re-usable at this stage? Can my code be reused between platforms? backend frontend? A very good example for this is I think graphql typings where the backend systems and frontend would have common type definitions. Another example might just be a list of input fields I'm registering for a form - probably it would make sense to have the input definitions in a data structure and just loop through that.</dd>
 
 <dt>Correctness</dt>
-<dd>Does the code have the desired affect in all scenarios? Does it have a defined result for every possible input? This is usually easy to see and most of the time should be covered by tests. Which brings us to:</dd>
+<dd>Does the code have the desired effect in all scenarios? Does it have a defined result for every possible input? This is usually easy to see and most of the time should be covered by tests. Which brings us to:</dd>
 
 <dt>Testability</dt>
 <dd>This is kind of a separate topic, but in my experience it's very tightly coupled with code quality. Is the code easy to test automatically? Do I have to mock half the world just to get the test running? Can the code be split up to help with that? In my experience when a code is easily testable, it usually follows most good programming practices and pragmatic approaches. It forces me to split up the code to bite-sized chunks: easy to read, easy to reason about, easy to test. Unfortunately this is not always achievable (think unstable network connection, animations, transitions, distributed computations...)</dd>
